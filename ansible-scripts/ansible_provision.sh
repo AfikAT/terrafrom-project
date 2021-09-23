@@ -12,7 +12,6 @@ else
 fi
 
 ##ADD ec2 ip to inventory##
-#current_dir="`dirname \"$0\"`"
 sed -i "/ec2_hosts/a ${public_ip}" ./inventory.ini
 
 ##Run Ansible playbook##
