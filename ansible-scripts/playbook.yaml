@@ -1,0 +1,111 @@
+---
+- hosts: ec2_hosts
+  tasks:
+    - name: Copy files
+      copy:
+        src: /tmp/flask-app/
+        dest: ~/flask-app/
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: '755'
+        remote_src: yes
+
+    - name: Installing packages that required by ansible
+      apt:
+        pkg:
+        - python3 
+        - python3-pip
+        update_cache: yes
+        state: present
+      become: yes
+
+    - name: Installing modules using pip, required by ansible 
+      pip:
+        name:
+          - docker 
+          - docker-compose
+        state: present
+  
+    - name: Check if docker installed
+      shell: "dpkg-query -l | grep -i docker"
+      register: docker_check
+      ignore_errors: yes
+
+    - name: Printing message if docker installed
+      debug:
+        msg: "Docker already installed!"
+      when: docker_check.stdout.find('docker') != -1
+
+    - name: Printing message if docker not exist
+      debug:
+        msg: "Docker is not installed!"
+      when: docker_check.stdout == ""
+
+    - name: Execute docker installation
+      shell: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo chmod +x get-docker.sh && ./get-docker.sh 1> /dev/null
+        sudo rm -rf get-docker.sh
+      when: docker_check.stdout == ""
+
+    - name: Check if docker-compose binary file exits
+      stat:
+       path: /usr/bin/docker-compose
+      register: docker_compose_bin
+
+    - name: Printing message if docker-compose not exists
+      debug:
+        msg: "docker-compose is not installed!"
+      when: not docker_compose_bin.stat.exists == False
+
+    - name: Execute docker-compose installation
+      shell: |
+        sudo curl -L \
+        "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" \
+        -o /usr/local/bin/docker-compose
+        sudo chmod +x /usr/local/bin/docker-compose
+      when: not docker_compose_bin.stat.exists == False
+
+    - name: Creating docker group
+      group:
+        name: docker
+        state: present
+
+    - name: Adding current user to docker group
+      become: yes
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: yes
+
+
+    - name: Restart docker service
+      service:
+        name: docker
+        state: restarted
+        enabled: yes
+      become: yes
+
+    - name: Ensuring docker service is running
+      service:
+        name: docker
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: Reset ssh connection for load our new created group
+      meta: reset_connection
+    
+    - name: Building dockerfile
+      docker_image:
+        build:
+          path: ~/flask-app
+        name: simple-flask-app:latest
+        source: build
+        state: present
+
+    - name: Start application using docker-compose
+      docker_compose:
+        project_src: ~/flask-app
+        build: no
+
