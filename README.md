@@ -43,5 +43,12 @@ variable "aws_region" {
     default = "CHANGE YOUR REGION HERE"
 }
 ```
+ ## How to run the project:
+ * In the current directory you download/clone the project:
+ ```
+cd terraform-project/
+terraform apply --auto-approve
+```
+ 
 
    
