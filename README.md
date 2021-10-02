@@ -23,5 +23,25 @@
    ```
  * Make sure you are in the current region(in aws console at the right corner)
  * If your region is diferrent from the project region("eu-west-1"),
-   you can change in under var.tf, "aws_region" var.
+   you can change it under var.tf, "aws_region" var:
+   ```
+   variable "aws_access_key" {}
+variable "aws_secret_key" {}
+variable "ssh_private_key" {
+    default = "mykeyproj.pem"
+    description = "SSH_Private_Key"
+}
+variable "ami_id" {
+    default = "ami-0c0e8c8bc308182d5"
+}
+
+variable "ec2_username" {
+    default = "ec2-user"
+}
+
+variable "aws_region" {
+    default = "CHANGE YOUR REGION HERE"
+}
+```
+
    
