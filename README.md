@@ -6,6 +6,8 @@
  ## Preconfiguration before running this project:
  * open an aws free tier account if you dont already have.
  * Create IAM admin user
+ ## Install terraform
+ <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Installing terraform</a>
  ## Create an IAM admin user:
  * Log in with your aws account.
  * Go to services --> IAM.
