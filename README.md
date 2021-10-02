@@ -25,7 +25,7 @@
  * If your region is diferrent from the project region("eu-west-1"),
    you can change it under var.tf, "aws_region" var:
 ```
-   variable "aws_access_key" {}
+variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "ssh_private_key" {
     default = "mykeyproj.pem"
@@ -40,7 +40,7 @@ variable "ec2_username" {
 }
 
 variable "aws_region" {
-    default = "CHANGE YOUR REGION HERE"
+    default = "eu-west-1"
 }
 ```
 
