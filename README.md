@@ -21,4 +21,7 @@
     aws_access_key = "YOUR ACCESS KEY HER"
     aws_secret_key = "YOUR SECRET KEY HERE"
    ```
+ * Make sure you are in the current region(in aws console at the right corner)
+ * If your region is diferrent from the project region("eu-west-1"),
+   you can change in under var.tf, "aws_region" var.
    
