@@ -24,7 +24,7 @@
  * Make sure you are in the current region(in aws console at the right corner)
  * If your region is diferrent from the project region("eu-west-1"),
    you can change it under var.tf, "aws_region" var:
-   ```
+```
    variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "ssh_private_key" {
