@@ -4,10 +4,9 @@
  * This project will spinning up an instance on aws
  * Provisioing using ansible and deploy our simple flask api app.
  ## Preconfiguration before running this project:
+ * <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Installing terraform</a>
  * open an aws free tier account if you dont already have.
  * Create IAM admin user
- ## Install terraform
- <a href="https://learn.hashicorp.com/tutorials/terraform/install-cli">Installing terraform</a>
  ## Create an IAM admin user:
  * Log in with your aws account.
  * Go to services --> IAM.
