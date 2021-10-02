@@ -40,7 +40,7 @@ variable "ec2_username" {
 }
 
 variable "aws_region" {
-    default = "eu-west-1"
+    default = "CHANGE YOUR REGION HERE"
 }
 ```
 
