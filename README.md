@@ -15,7 +15,7 @@
  * In groups tab, click create a group and write a name for your new group.
  * After you creates your new group, attach the administrator group policy role to your group.
  * Click create user for creating your new user and group.
- * You will see at the end your created user and an accsess key and secret key for login.
+ * You will see at the end an accsess key and secret key for of the new user, make sure you copy it for the next step.
  * Download the project to your machine and create a new file "terraform.tfvars" with your accsess key and secret key:
    ```
     aws_access_key = "YOUR ACCESS KEY HER"
